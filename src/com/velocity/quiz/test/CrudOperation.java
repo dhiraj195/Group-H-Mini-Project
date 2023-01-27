@@ -4,18 +4,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class CrudOperation {
 
 	Connection conn = null;
 	PreparedStatement ps = null;
+	Scanner sc = new Scanner(System.in);
+
+	// Dhiraj
+	public void getAllStudentData() {
+
+	}
+
+	// Dhiraj
+	public void addStudent(Student st) {
+
+	}
 
 	public boolean getStudent(String id) {
 		boolean ans = false;
 		try {
 			ConnectionClass cc = new ConnectionClass();
 			conn = cc.getConnectionDetails();
-			ps = conn.prepareStatement("select * from user where LastName = ?");
+			ps = conn.prepareStatement("SELECT * FROM user WHERE LastName = ?");
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs == null) {
@@ -32,9 +44,44 @@ public class CrudOperation {
 		}
 		return ans;
 	}
-	
-	//Dhiraj
-	public void addStudent(Student st) {
-		
+
+	public int getQuestions() {
+		int score = 0;
+		try {
+			ConnectionClass cc = new ConnectionClass();
+			conn = cc.getConnectionDetails();
+			ps = conn.prepareStatement("SELECT * FROM user ORDER BY RANDOM()");
+			ResultSet rs = ps.executeQuery();
+
+			boolean ans = true;
+			int op = 0;
+
+			while (rs.next()) {
+				System.out.println();
+				System.out.println("\t Q) " + rs.getString(1));
+				System.out.println();
+				System.out.println("\t 1) " + rs.getString(2));
+				System.out.println("\t 2) " + rs.getString(3));
+				System.out.println("\t 3) " + rs.getString(4));
+				System.out.println("\t 4) " + rs.getString(5));
+
+				while (ans) {
+					System.out.print("\t Answer : ");
+					op = sc.nextInt();
+					ans = false;
+					if (op != 1 || op != 2 || op != 3 || op != 4) {
+						ans = true;
+						System.out.println("\t Wrong output please give correct output between 1 to 4 ");
+					}
+				}
+				if (rs.getString(op + 1).equals(rs.getString(6))) {
+					score += score;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return score;
 	}
+
 }
