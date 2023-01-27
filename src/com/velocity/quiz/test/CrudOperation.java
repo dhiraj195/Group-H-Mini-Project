@@ -27,18 +27,16 @@ public class CrudOperation {
 		try {
 			ConnectionClass cc = new ConnectionClass();
 			conn = cc.getConnectionDetails();
-			ps = conn.prepareStatement("SELECT * FROM user WHERE LastName = ?");
+			ps = conn.prepareStatement("SELECT * FROM student WHERE Studid = ?");
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
-			if (rs == null) {
-				ans = false;
-			} else {
-				ans = true;
-				while (rs.next()) {
-					System.out.println("Name : " + rs.getString(3));
-				}
-			}
 
+			ans = false;
+			while (rs.next()) {
+				ans = true;
+				System.out.println("\t Name : " + rs.getString(2));
+				System.out.println("\t Score : " + rs.getInt(3));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -50,7 +48,7 @@ public class CrudOperation {
 		try {
 			ConnectionClass cc = new ConnectionClass();
 			conn = cc.getConnectionDetails();
-			ps = conn.prepareStatement("SELECT * FROM user ORDER BY RANDOM()");
+			ps = conn.prepareStatement("SELECT * FROM questions ORDER BY RAND()");
 			ResultSet rs = ps.executeQuery();
 
 			boolean ans = true;
@@ -58,25 +56,26 @@ public class CrudOperation {
 
 			while (rs.next()) {
 				System.out.println();
-				System.out.println("\t Q) " + rs.getString(1));
+				System.out.println("\t Q) " + rs.getString(2));
 				System.out.println();
-				System.out.println("\t 1) " + rs.getString(2));
-				System.out.println("\t 2) " + rs.getString(3));
-				System.out.println("\t 3) " + rs.getString(4));
-				System.out.println("\t 4) " + rs.getString(5));
+				System.out.println("\t 1) " + rs.getString(3));
+				System.out.println("\t 2) " + rs.getString(4));
+				System.out.println("\t 3) " + rs.getString(5));
+				System.out.println("\t 4) " + rs.getString(6));
 
 				while (ans) {
 					System.out.print("\t Answer : ");
 					op = sc.nextInt();
 					ans = false;
-					if (op != 1 || op != 2 || op != 3 || op != 4) {
+					if (op < 1 || op > 4) {
 						ans = true;
 						System.out.println("\t Wrong output please give correct output between 1 to 4 ");
 					}
 				}
-				if (rs.getString(op + 1).equals(rs.getString(6))) {
-					score += score;
+				if (rs.getString(op + 2).contains(rs.getString(7))) {
+					score++;
 				}
+				ans = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
