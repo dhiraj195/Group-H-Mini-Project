@@ -14,12 +14,50 @@ public class CrudOperation {
 
 	// Dhiraj
 	public void getAllStudentData() {
+		try {
+			ConnectionClass cc = new ConnectionClass();
+			conn = cc.getConnectionDetails();
+			ps = conn.prepareStatement("SELECT * FROM student");
+			ResultSet rs = ps.executeQuery();
+			System.out.println();
+			System.out.println("\t Student Id \t\t Student Name \t\t Score");
+			while (rs.next()) {
+				System.out.println("\t " + rs.getString(1) + "\t\t " + rs.getString(2) + "\t\t " + rs.getInt(3));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
+		}
 	}
 
 	// Dhiraj
 	public void addStudent(Student st) {
+		try {
+			ConnectionClass cc = new ConnectionClass();
+			conn = cc.getConnectionDetails();
+			ps = conn.prepareStatement("insert into student(Studid,StudentName,Score) values(?,?,?)");
+			ps.setString(1, st.getId());
+			ps.setString(2, st.getName());
+			ps.setInt(3, st.getScore());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
+		}
 	}
 
 	public boolean getStudent(String id) {
