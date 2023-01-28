@@ -14,14 +14,15 @@ public class CrudOperation {
 
 	// Dhiraj
 	public void getAllStudentData() {
-
+		
 	}
 
 	// Dhiraj
 	public void addStudent(Student st) {
-
+		
 	}
-
+	
+	//Harshal
 	public boolean getStudent(String id) {
 		boolean ans = false;
 		try {
@@ -39,10 +40,19 @@ public class CrudOperation {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 		}
 		return ans;
 	}
 
+	//Harshal
 	public int getQuestions() {
 		int score = 0;
 		try {
@@ -79,6 +89,14 @@ public class CrudOperation {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
 		}
 		return score;
 	}

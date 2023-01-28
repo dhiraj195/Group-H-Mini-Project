@@ -3,10 +3,10 @@ package com.velocity.quiz.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+//Dhiraj
 public class ConnectionClass {
 	Connection connection = null;
-	
-	//Dhiraj
+		
 	public Connection getConnectionDetails() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

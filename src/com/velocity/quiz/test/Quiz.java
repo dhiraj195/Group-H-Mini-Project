@@ -37,7 +37,10 @@ public class Quiz {
 					
 				case 2:System.out.print("\t Enter Student Id : ");
 				       String id =sc.next();
-					co.getStudent(id);
+					boolean ans =co.getStudent(id);
+					if(!ans) {
+						System.out.println("\t Student with "+id+" id is not present :");
+					}
 					break;
 						
 				case 3:co.getAllStudentData();
