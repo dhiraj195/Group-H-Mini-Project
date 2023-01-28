@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CrudOperation {
@@ -102,10 +103,11 @@ public class CrudOperation {
 				System.out.println("\t 4) " + rs.getString(6));
 
 				while (ans) {
+
 					System.out.print("\t Answer : ");
 					op = sc.nextInt();
 					ans = false;
-					if (op < 1 || op > 4) {
+					if (op<1 || op>4) {
 						ans = true;
 						System.out.println("\t Wrong output please give correct output between 1 to 4 ");
 					}
