@@ -1,5 +1,6 @@
 package com.velocity.quiz.test;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Quiz {
@@ -19,32 +20,46 @@ public class Quiz {
 			e.printStackTrace();
 		}
 		
-		boolean ans1 =true;
-		int op;
-		while(ans1) {
-			System.out.println("\t 1) Start Quiz");
-			System.out.println("\t 2) Get Student Score");
-			System.out.println("\t 3) Show all Student score");
-			System.out.print("\t Please select any one of the above : ");
-			op = sc.nextInt();
-			ans1=false;
-			if(op<1 || op>3) {
-				ans1=true;
-			}else {
-				switch(op) {
-				case 1: quizStart();
-					break;
-					
-				case 2:System.out.print("\t Enter Student Id : ");
-				       String id =sc.next();
-					co.getStudent(id);
-					break;
+		try {
+			boolean ans1 =true;
+			int op;
+			while(ans1) {
+				
+				System.out.println("\t 1) Start Quiz");
+				System.out.println("\t 2) Get Student Score");
+				System.out.println("\t 3) Show all Student score");
+				System.out.print("\t Please select any one of the above : ");
+				
+				op = sc.nextInt();
+				ans1=false;
+				if(op<1 || op>3) {
+					ans1=true;
+				}else {
+					switch(op) {
+					case 1: quizStart();
+						break;
 						
-				case 3:co.getAllStudentData();
-					break;
+					case 2:System.out.print("\t Enter Student Id : ");
+					       String id =sc.next();
+						boolean ans=co.getStudent(id);
+						if(!ans) {
+							System.out.println("\t Student with "+id+" id is not present..");
+						}
+						break;
+							
+					case 3:co.getAllStudentData();
+						break;
+					}
 				}
 			}
+		} catch (InputMismatchException ime) {
+			System.out.println("\t Wrong input please give input in digit only");
+			homePage();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	public void quizStart() {
